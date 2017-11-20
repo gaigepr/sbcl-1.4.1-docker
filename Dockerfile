@@ -6,7 +6,7 @@ WORKDIR /app
 ADD . /app
 
 # Install packages
-RUN apt-get update && apt-get install -y curl bzip2 make git
+RUN apt-get update && apt-get install -y curl bzip2 make git nano
 
 # Setup env
 ENV SBCL_VERSION 1.4.1
@@ -26,8 +26,14 @@ RUN mkdir /sbcl \
 
 # Download quicklisp
 RUN curl -O https://beta.quicklisp.org/quicklisp.lisp
+# Verify quicklisp
+# TODO: Debug why verification was failing... Something about loading gpg configs?
 #RUN curl -O https://beta.quicklisp.org/quicklisp.lisp.asc
 #RUN gpg --verify quicklisp.lisp.asc quicklisp.lisp
+# Install quicklisp
 RUN ${SBCL_BIN}/sbcl --load quicklisp.lisp --eval "(progn (quicklisp-quickstart:install :path \"${QUICKLISP_DIR}\") (quit))"
 
-ENTRYPOINT ["${SBCL_BIN}/sbcl", "--load ${QUICKLISP_DIR}/setup.lisp"]
+# NOTE: Requires CMD form instead of ENTRYPOINT for unknown reasons... Fixes #1
+# main.lisp is loaded as the entrypoint into the application to be run from inside this container.
+# So, add code to bootstrap your app there.
+CMD /sbcl/bin/sbcl --userinit sbclrc.lisp --load main.lisp
