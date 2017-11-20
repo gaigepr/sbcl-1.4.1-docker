@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM debian:buster-slim
 
 MAINTAINER Gaige Pierce-Raison <gaige@cyrusbio.com>
 
