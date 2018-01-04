@@ -6,7 +6,7 @@ WORKDIR /app
 ADD . /app
 
 # Install packages
-RUN apt-get update && apt-get install -y curl bzip2 make git nano
+RUN apt-get update && apt-get install -y curl bzip2 make git emacs-nox
 
 # Setup env
 ENV SBCL_VERSION 1.4.1
