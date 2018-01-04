@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM debian:stretch-slim
 
 MAINTAINER Gaige Pierce-Raison <gaigepr@gmail.com>
 
