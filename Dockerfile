@@ -1,6 +1,6 @@
 FROM debian:buster-slim
 
-MAINTAINER Gaige Pierce-Raison <gaige@cyrusbio.com>
+MAINTAINER Gaige Pierce-Raison <gaigepr@gmail.com>
 
 WORKDIR /app
 ADD . /app
